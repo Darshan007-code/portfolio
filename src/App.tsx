@@ -1,7 +1,13 @@
-import { ArrowUpRight, Menu, X, FileText, ChevronUp } from "lucide-react";
+import { ArrowUpRight, Menu, X, FileText, ChevronUp, Volume2, VolumeX } from "lucide-react";
 import { useEffect, useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import { Routes, Route, Link } from "react-router-dom";
+import {
+  playResumeClick,
+  playResumeHover,
+  isAudioMuted,
+  toggleAudioMute,
+} from "@/utils/audio";
 const base = import.meta.env.BASE_URL;
 const favicon = `${base}favicon.png`;
 
@@ -24,6 +30,15 @@ export default function App() {
   const [mobileMenu, setMobileMenu] = useState(false);
   const [activeSection, setActiveSection] = useState("Home");
   const [showBackToTop, setShowBackToTop] = useState(false);
+  const [soundMuted, setSoundMuted] = useState(isAudioMuted);
+
+  const handleToggleSound = () => {
+    const next = toggleAudioMute();
+    setSoundMuted(next);
+    if (!next) {
+      playResumeClick();
+    }
+  };
 
   const text = "DARSHAN";
   const [displayed, setDisplayed] = useState("");
@@ -200,11 +215,22 @@ export default function App() {
             </ul>
 
             <div className="hidden md:flex items-center gap-4">
+              <button
+                onClick={handleToggleSound}
+                className="p-1.5 rounded-full border border-white/10 hover:border-white/30 text-white/50 hover:text-white transition-colors cursor-pointer"
+                title={soundMuted ? "Unmute Sound Effects" : "Mute Sound Effects"}
+                aria-label="Toggle Sound Effects"
+              >
+                {soundMuted ? <VolumeX size={14} /> : <Volume2 size={14} className="text-emerald-400" />}
+              </button>
+
               <a
                 href={`${base}Darshan_Patil_Resume_SE.pdf`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full border border-white/20 bg-white/5 hover:bg-white hover:text-black transition-all duration-300 text-[11px] font-bold tracking-widest uppercase text-white shadow-[0_0_15px_rgba(255,255,255,0.06)]"
+                onMouseEnter={playResumeHover}
+                onClick={playResumeClick}
+                className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full border border-white/20 bg-white/5 hover:bg-white hover:text-black transition-all duration-300 text-[11px] font-bold tracking-widest uppercase text-white shadow-[0_0_15px_rgba(255,255,255,0.06)] cursor-pointer"
               >
                 <FileText size={13} />
                 <span>Resume</span>
@@ -292,12 +318,21 @@ export default function App() {
                   href={`${base}Darshan_Patil_Resume_SE.pdf`}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={playResumeClick}
                   className="flex items-center justify-center gap-2 w-full py-2.5 rounded-full bg-white text-black text-xs font-bold tracking-widest uppercase shadow-[0_0_20px_rgba(255,255,255,0.2)]"
                 >
                   <FileText size={14} />
                   <span>Resume</span>
                   <ArrowUpRight size={14} />
                 </a>
+
+                <button
+                  onClick={handleToggleSound}
+                  className="flex items-center justify-center gap-2 w-full py-2 rounded-full border border-white/20 text-white/80 text-xs font-medium tracking-widest uppercase hover:bg-white/10"
+                >
+                  {soundMuted ? <VolumeX size={14} /> : <Volume2 size={14} className="text-emerald-400" />}
+                  <span>{soundMuted ? "Sound: Off" : "Sound: On"}</span>
+                </button>
 
                 <Link
                   to="/about"
@@ -373,6 +408,8 @@ animate-[shine_4s_linear_infinite]">
                     href={`${base}Darshan_Patil_Resume_SE.pdf`}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onMouseEnter={playResumeHover}
+                    onClick={playResumeClick}
                   >
                     <button className="inline-flex items-center gap-2.5 bg-white text-black px-6 py-3 text-xs tracking-[0.2em] uppercase font-bold hover:bg-zinc-200 hover:scale-105 active:scale-95 transition-all duration-300 rounded-full shadow-[0_0_25px_rgba(255,255,255,0.2)] cursor-pointer">
                       <FileText size={15} />

@@ -14,6 +14,12 @@ import {
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import {
+  playResumeClick,
+  playResumeHover,
+  playCountdownTick,
+  playDownloadSuccess,
+} from "@/utils/audio";
 
 const base = import.meta.env.BASE_URL;
 
@@ -54,8 +60,10 @@ export default function About() {
   const handleDownload = () => {
     if (downloading) return;
 
+    playResumeClick();
     setDownloading(true);
     setCountdown(3);
+    playCountdownTick(3);
 
     let time = 3;
 
@@ -63,8 +71,11 @@ export default function About() {
       time--;
       setCountdown(time);
 
-      if (time <= 0) {
+      if (time > 0) {
+        playCountdownTick(time);
+      } else {
         clearInterval(timer);
+        playDownloadSuccess();
 
         const a = document.createElement("a");
         a.href = `${base}Darshan_Patil_Resume_SE.pdf`;
@@ -539,6 +550,7 @@ export default function About() {
             delay: 0.4,
           }}
           onClick={handleDownload}
+          onMouseEnter={playResumeHover}
           disabled={downloading}
           className="
             group
