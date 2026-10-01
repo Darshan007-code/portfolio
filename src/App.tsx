@@ -1,7 +1,8 @@
-import { ArrowUpRight, Menu, X } from "lucide-react";
+import { ArrowUpRight, Menu, X, FileText, ChevronUp } from "lucide-react";
 import { useEffect, useState } from "react";
 import { AnimatePresence } from "framer-motion";
-import favicon from "/favicon.ico";
+import { Routes, Route, Link } from "react-router-dom";
+const favicon = "/favicon.png";
 
 import heroEye from "@/assets/hero-eye.png";
 
@@ -9,18 +10,21 @@ import WelcomeScreen from "@/components/WelcomeScreen";
 import FrontendDeveloperSection from "@/components/FrontendDeveloperSection";
 import Showcase from "./components/Showcase";
 import ContactSection from "@/components/ContactSection";
-import { Routes, Route } from "react-router-dom";
 import About from "./pages/About";
 
 
-const logos = ["PRINCE", "WEBKAIZEN", "FRONTEND", "DEVELOPER"];
+const logos = ["DARSHAN PATIL", "SOFTWARE ENGINEER", "FULL STACK", "AI & WEB SYSTEMS"];
 
 export default function App() {
-  const [showWelcome, setShowWelcome] = useState(true);
+  const [showWelcome, setShowWelcome] = useState(() => {
+    return !sessionStorage.getItem("portfolio_welcomed");
+  });
   const [time, setTime] = useState("");
   const [mobileMenu, setMobileMenu] = useState(false);
+  const [activeSection, setActiveSection] = useState("Home");
+  const [showBackToTop, setShowBackToTop] = useState(false);
 
-  const text = "PRINCE";
+  const text = "DARSHAN";
   const [displayed, setDisplayed] = useState("");
   const [colorMode, setColorMode] = useState(0);
 
@@ -30,10 +34,47 @@ export default function App() {
     "bg-gradient-to-b from-black via-gray-500 via-gray-200 to-white text-transparent bg-clip-text",
   ];
 
+  const handleSkipWelcome = () => {
+    setShowWelcome(false);
+    sessionStorage.setItem("portfolio_welcomed", "true");
+  };
+
   useEffect(() => {
-    const timer = setTimeout(() => setShowWelcome(false), 5000);
+    if (!showWelcome) return;
+    const timer = setTimeout(() => {
+      setShowWelcome(false);
+      sessionStorage.setItem("portfolio_welcomed", "true");
+    }, 2800);
     return () => clearTimeout(timer);
+  }, [showWelcome]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowBackToTop(window.scrollY > 400);
+
+      const sections = ["Home", "about", "showcase", "contact"];
+      const scrollPos = window.scrollY + 250;
+
+      for (const sectionId of sections) {
+        const el = document.getElementById(sectionId);
+        if (el) {
+          const top = el.offsetTop;
+          const height = el.offsetHeight;
+          if (scrollPos >= top && scrollPos < top + height) {
+            setActiveSection(sectionId);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   useEffect(() => {
     if (showWelcome || mobileMenu) {
@@ -78,28 +119,35 @@ export default function App() {
     <Routes>
       <Route path="/" element={
         <div className="min-h-screen bg-black text-white overflow-x-hidden">
-          <AnimatePresence>{showWelcome && <WelcomeScreen />}</AnimatePresence>
+          <AnimatePresence>
+            {showWelcome && <WelcomeScreen onSkip={handleSkipWelcome} />}
+          </AnimatePresence>
 
-          <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-12 py-5 backdrop-blur-xl bg-black/20 border-b border-white/10">
+          <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-12 py-4 md:py-5 backdrop-blur-xl bg-black/40 border-b border-white/10 transition-all duration-300">
             <div className="flex items-center gap-3">
               <img
                 src={favicon}
                 alt="Logo"
-                className="w-8 h-8 rounded-full object-cover"
+                className="w-8 h-8 rounded-full object-cover border border-white/20 shadow-[0_0_15px_rgba(255,255,255,0.1)]"
               />
 
-              <span className="text-[10px] md:text-xs tracking-[0.3em] text-white/70 uppercase font-medium">
-                PRINCE · WEBKAIZEN
+              <span className="text-[10px] md:text-xs tracking-[0.3em] text-white/80 uppercase font-medium">
+                DARSHAN · PATIL
               </span>
             </div>
-            <ul className="hidden md:flex items-center gap-10 text-xs tracking-widest text-white/70 uppercase">
+
+            <ul className="hidden md:flex items-center gap-8 lg:gap-10 text-xs tracking-widest uppercase">
               <li
                 onClick={() =>
                   document.getElementById("Home")?.scrollIntoView({
                     behavior: "smooth",
                   })
                 }
-                className="relative hover:text-white transition-colors cursor-pointer after:absolute after:left-0 after:-bottom-1 after:h-[1px] after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full"
+                className={`relative transition-colors cursor-pointer py-1 ${
+                  activeSection === "Home" ? "text-white font-semibold" : "text-white/60 hover:text-white"
+                } after:absolute after:left-0 after:-bottom-1 after:h-[1px] after:bg-white after:transition-all after:duration-300 ${
+                  activeSection === "Home" ? "after:w-full" : "after:w-0 hover:after:w-full"
+                }`}
               >
                 Home
               </li>
@@ -110,7 +158,11 @@ export default function App() {
                     behavior: "smooth",
                   })
                 }
-                className="relative hover:text-white transition-colors cursor-pointer after:absolute after:left-0 after:-bottom-1 after:h-[1px] after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full"
+                className={`relative transition-colors cursor-pointer py-1 ${
+                  activeSection === "about" ? "text-white font-semibold" : "text-white/60 hover:text-white"
+                } after:absolute after:left-0 after:-bottom-1 after:h-[1px] after:bg-white after:transition-all after:duration-300 ${
+                  activeSection === "about" ? "after:w-full" : "after:w-0 hover:after:w-full"
+                }`}
               >
                 About
               </li>
@@ -121,7 +173,11 @@ export default function App() {
                     behavior: "smooth",
                   })
                 }
-                className="relative hover:text-white transition-colors cursor-pointer after:absolute after:left-0 after:-bottom-1 after:h-[1px] after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full"
+                className={`relative transition-colors cursor-pointer py-1 ${
+                  activeSection === "showcase" ? "text-white font-semibold" : "text-white/60 hover:text-white"
+                } after:absolute after:left-0 after:-bottom-1 after:h-[1px] after:bg-white after:transition-all after:duration-300 ${
+                  activeSection === "showcase" ? "after:w-full" : "after:w-0 hover:after:w-full"
+                }`}
               >
                 Showcase
               </li>
@@ -132,19 +188,37 @@ export default function App() {
                     behavior: "smooth",
                   })
                 }
-                className="relative hover:text-white transition-colors cursor-pointer after:absolute after:left-0 after:-bottom-1 after:h-[1px] after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full"
+                className={`relative transition-colors cursor-pointer py-1 ${
+                  activeSection === "contact" ? "text-white font-semibold" : "text-white/60 hover:text-white"
+                } after:absolute after:left-0 after:-bottom-1 after:h-[1px] after:bg-white after:transition-all after:duration-300 ${
+                  activeSection === "contact" ? "after:w-full" : "after:w-0 hover:after:w-full"
+                }`}
               >
                 Contact
               </li>
             </ul>
 
-            <div className="hidden md:block text-[10px] tracking-[0.3em] text-white/70 uppercase">
-              {time}
+            <div className="hidden md:flex items-center gap-4">
+              <a
+                href="/Darshan_Patil_Resume_SE.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full border border-white/20 bg-white/5 hover:bg-white hover:text-black transition-all duration-300 text-[11px] font-bold tracking-widest uppercase text-white shadow-[0_0_15px_rgba(255,255,255,0.06)]"
+              >
+                <FileText size={13} />
+                <span>Resume</span>
+                <ArrowUpRight size={13} />
+              </a>
+
+              <div className="text-[10px] tracking-[0.3em] text-white/50 uppercase font-mono">
+                {time}
+              </div>
             </div>
 
             <button
               onClick={() => setMobileMenu(!mobileMenu)}
-              className="md:hidden text-white z-50"
+              className="md:hidden text-white z-50 p-2 cursor-pointer"
+              aria-label="Toggle Menu"
             >
               {mobileMenu ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -152,14 +226,14 @@ export default function App() {
 
 
           {mobileMenu && (
-            <div className="fixed inset-0 z-40 bg-black/95 backdrop-blur-xl flex flex-col items-center justify-center gap-10 text-white uppercase tracking-[0.3em] text-sm md:hidden">
+            <div className="fixed inset-0 z-40 bg-black/95 backdrop-blur-2xl flex flex-col items-center justify-center gap-8 text-white uppercase tracking-[0.3em] text-sm md:hidden">
 
-              <div className="absolute top-30 text-center">
-                <p className="text-[10px] text-white/40 tracking-[0.3em] mb-2">
-                  TIME
+              <div className="absolute top-20 text-center">
+                <p className="text-[10px] text-white/40 tracking-[0.3em] mb-1 font-mono">
+                  CURRENT TIME
                 </p>
 
-                <h2 className="text-2xl tracking-widest font-semibold">
+                <h2 className="text-xl tracking-widest font-semibold font-mono text-white/90">
                   {time}
                 </h2>
               </div>
@@ -171,7 +245,7 @@ export default function App() {
                   });
                   setMobileMenu(false);
                 }}
-                className="relative after:absolute after:left-0 after:-bottom-2 after:h-[1px] after:w-0 after:bg-white after:transition-all hover:after:w-full"
+                className="relative py-2 after:absolute after:left-0 after:-bottom-1 after:h-[1px] after:w-0 after:bg-white after:transition-all hover:after:w-full cursor-pointer"
               >
                 Home
               </button>
@@ -183,7 +257,7 @@ export default function App() {
                   });
                   setMobileMenu(false);
                 }}
-                className="relative after:absolute after:left-0 after:-bottom-2 after:h-[1px] after:w-0 after:bg-white after:transition-all hover:after:w-full"
+                className="relative py-2 after:absolute after:left-0 after:-bottom-1 after:h-[1px] after:w-0 after:bg-white after:transition-all hover:after:w-full cursor-pointer"
               >
                 About
               </button>
@@ -195,7 +269,7 @@ export default function App() {
                   });
                   setMobileMenu(false);
                 }}
-                className="relative after:absolute after:left-0 after:-bottom-2 after:h-[1px] after:w-0 after:bg-white after:transition-all hover:after:w-full"
+                className="relative py-2 after:absolute after:left-0 after:-bottom-1 after:h-[1px] after:w-0 after:bg-white after:transition-all hover:after:w-full cursor-pointer"
               >
                 Showcase
               </button>
@@ -207,10 +281,31 @@ export default function App() {
                   });
                   setMobileMenu(false);
                 }}
-                className="relative after:absolute after:left-0 after:-bottom-2 after:h-[1px] after:w-0 after:bg-white after:transition-all hover:after:w-full"
+                className="relative py-2 after:absolute after:left-0 after:-bottom-1 after:h-[1px] after:w-0 after:bg-white after:transition-all hover:after:w-full cursor-pointer"
               >
                 Contact
               </button>
+
+              <div className="flex flex-col items-center gap-3 mt-4 pt-6 border-t border-white/10 w-48">
+                <a
+                  href="/Darshan_Patil_Resume_SE.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 w-full py-2.5 rounded-full bg-white text-black text-xs font-bold tracking-widest uppercase shadow-[0_0_20px_rgba(255,255,255,0.2)]"
+                >
+                  <FileText size={14} />
+                  <span>Resume</span>
+                  <ArrowUpRight size={14} />
+                </a>
+
+                <Link
+                  to="/about"
+                  onClick={() => setMobileMenu(false)}
+                  className="flex items-center justify-center gap-2 w-full py-2.5 rounded-full border border-white/20 text-white/90 text-xs font-medium tracking-widest uppercase hover:bg-white/10"
+                >
+                  <span>Full Bio Page</span>
+                </Link>
+              </div>
             </div>
           )}
 
@@ -272,16 +367,30 @@ animate-[shine_4s_linear_infinite]">
                   </em>
                 </p>
 
-                <a
-                  href="https://www.webkaizen.in"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <button className="inline-flex items-center gap-3 border border-white/20 text-white px-6 py-3 text-xs tracking-[0.25em] uppercase font-semibold hover:bg-white hover:text-black transition-all duration-300 rounded-full">
-                    WEBKAIZEN
-                    <ArrowUpRight size={16} />
-                  </button>
-                </a>
+                <div className="flex flex-wrap items-center gap-3">
+                  <a
+                    href="/Darshan_Patil_Resume_SE.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <button className="inline-flex items-center gap-2.5 bg-white text-black px-6 py-3 text-xs tracking-[0.2em] uppercase font-bold hover:bg-zinc-200 hover:scale-105 active:scale-95 transition-all duration-300 rounded-full shadow-[0_0_25px_rgba(255,255,255,0.2)] cursor-pointer">
+                      <FileText size={15} />
+                      RESUME
+                      <ArrowUpRight size={15} />
+                    </button>
+                  </a>
+
+                  <a
+                    href="https://github.com/Darshan007-code"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <button className="inline-flex items-center gap-2.5 border border-white/20 text-white px-6 py-3 text-xs tracking-[0.2em] uppercase font-semibold hover:bg-white/10 hover:border-white/40 hover:scale-105 active:scale-95 transition-all duration-300 rounded-full cursor-pointer">
+                      VIEW GITHUB
+                      <ArrowUpRight size={15} />
+                    </button>
+                  </a>
+                </div>
               </div>
             </div>
           </section>
@@ -319,6 +428,16 @@ animate-[shine_4s_linear_infinite]">
           <section id="contact">
             <ContactSection />
           </section>
+
+          {showBackToTop && (
+            <button
+              onClick={scrollToTop}
+              aria-label="Back to top"
+              className="fixed bottom-6 right-6 z-40 p-3 rounded-full border border-white/20 bg-black/80 backdrop-blur-xl text-white/70 hover:text-white hover:border-white/40 hover:bg-white/10 hover:scale-110 active:scale-95 transition-all shadow-[0_0_25px_rgba(255,255,255,0.12)] cursor-pointer"
+            >
+              <ChevronUp size={20} />
+            </button>
+          )}
         </div>
       } 
     />

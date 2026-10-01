@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Code2, User, Globe } from "lucide-react";
 import { useEffect } from "react";
 
-export default function WelcomeScreen() {
+export default function WelcomeScreen({ onSkip }: { onSkip?: () => void }) {
   const icons = [Code2, User, Globe];
 
   useEffect(() => {
@@ -23,12 +23,22 @@ export default function WelcomeScreen() {
         opacity: 0,
         scale: 1.05,
         transition: {
-          duration: 1.2,
+          duration: 0.8,
           ease: [0.22, 1, 0.36, 1],
         },
       }}
       className="fixed inset-0 z-[99999] flex items-center justify-center bg-black overflow-hidden p-5"
     >
+      {/* Skip Button */}
+      {onSkip && (
+        <button
+          onClick={onSkip}
+          className="absolute top-6 right-6 z-50 px-3.5 py-1.5 rounded-full border border-white/20 bg-white/5 backdrop-blur-md text-[11px] font-mono uppercase tracking-widest text-white/60 hover:text-white hover:border-white/40 hover:bg-white/10 transition-all cursor-pointer active:scale-95"
+        >
+          Skip ✕
+        </button>
+      )}
+
       {/* Background Glow */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-[-120px] left-1/2 -translate-x-1/2 w-[420px] h-[420px] bg-white/10 blur-[120px] rounded-full" />
@@ -166,7 +176,7 @@ export default function WelcomeScreen() {
             }}
             className="inline-block overflow-hidden whitespace-nowrap"
           >
-            www.webkaizen.in
+            DARSHAN PATIL
           </motion.span>
 
           <motion.span
@@ -189,7 +199,7 @@ export default function WelcomeScreen() {
             initial={{ width: "10%" }}
             animate={{ width: "100%" }}
             transition={{
-              duration: 6.5,
+              duration: 2.8,
               ease: [0.22, 1, 0.36, 1],
             }}
             className="h-full bg-white"

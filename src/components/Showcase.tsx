@@ -20,26 +20,92 @@ const techStack = [
 
 const projects = [
   {
-    tech: "typescript + Tailwind",
-    thumbnail: "https://cdn.jsdelivr.net/gh/princekumar-dev74/portfolio/public/preview.png",
-    github: "https://github.com/princekumar-dev74/portfolio.git",
+    title: "Real-Time Chat App",
+    category: "Full Stack",
+    description: "Full-stack messaging application featuring WebSocket live presence, private chat rooms & Zustand state.",
+    tech: "MERN + Socket.io + Tailwind + Zustand",
+    thumbnail: "/assets/chat-app-clean-preview.jpg",
+    github: "https://github.com/Darshan007-code/Real-Time-Chat-App",
+    demo: "https://darshan007-code.github.io/Real-Time-Chat-App/",
   },
   {
-    tech: "Typescript + Tailwind",
-    thumbnail: "/assets/website.png",
-    github: "https://www.webkaizen.in",
+    title: "MixManga Reader & Tracker",
+    category: "Full Stack",
+    description: "Comprehensive manga exploration platform with bookmarking, chapter progress tracking & clean reader interface.",
+    tech: "React + Node + Express + MongoDB",
+    thumbnail: "/assets/mixmanga-preview.png",
+    github: "https://github.com/Darshan007-code/mixmanga",
+    demo: "https://mixmanga-broy.vercel.app/home",
   },
   {
-    tech: "Typescript",
-    thumbnail: "https://cdn.jsdelivr.net/gh/princekumar-dev74/portfolio-v1/public/preview.png",
-    github: "https://github.com/princekumar-dev74/portfolio-v1.git",
+    title: "GranthaVeda: The Eternal Library",
+    category: "Frontend",
+    description: "Interactive digital manuscript portal featuring categorized sacred texts, dark aesthetics & modern typography.",
+    tech: "React + TypeScript + Tailwind + Node",
+    thumbnail: "/assets/granthaveda-preview.jpg",
+    github: "https://github.com/Darshan007-code/GranthaVeda",
+    demo: "https://darshan007-code.github.io/GranthaVeda/",
+  },
+  {
+    title: "VisionAttend AI",
+    category: "AI & Systems",
+    description: "Automated attendance pipeline leveraging OpenCV facial detection, LBPH recognition & real-time analytics.",
+    tech: "Python + OpenCV + Flask + LBPH",
+    thumbnail: "/assets/vision-attend-preview.png",
+    github: "https://github.com/Darshan007-code/Vision-Attend",
+    demo: "https://Darshan007-code.github.io/Vision-Attend/",
+  },
+  {
+    title: "Stakeholder Feedback System",
+    category: "Full Stack",
+    description: "Institutional feedback & analytics portal featuring dynamic rating aggregation, visual charts & reporting.",
+    tech: "JavaScript + REST API + Chart.js",
+    thumbnail: "/assets/stakeholder-feedback-preview.jpg",
+    github: "https://github.com/Darshan007-code/stakeholder-feedback-system",
+    demo: "https://darshan007-code.github.io/stakeholder-feedback-system/",
   },
 ];
 
 const certificates = [
-  { title: "upcoming", tech: "#", thumbnail: "#" },
-  { title: "upcoming", tech: "#", thumbnail: "#" },
+  {
+    title: "Full Stack Web Development (MERN) Internship",
+    tech: "SuprMentr Technologies · VTU Belagavi",
+    thumbnail: "/assets/suprmentr-internship-cert.jpeg",
+    pdfUrl: "/Darshan_Patil_SuprMentr_Internship_Certificate.jpeg",
+    credentialId: "SM26VFSWD1071",
+    verified: true,
+  },
+  {
+    title: "Web Development Internship Completion",
+    tech: "Launched Global · Deevelo X",
+    thumbnail: "/assets/launched-global-cert.png",
+    pdfUrl: "/Darshan_Patil_LaunchedGlobal_Certificate.pdf",
+    credentialId: "LEDINT02-WD004",
+    verified: true,
+  },
+  {
+    title: "Certificate of Appreciation – Brand Executive",
+    tech: "LaunchEd Global · Kshitij IIT KGP",
+    thumbnail: "/assets/launched-brand-executive-cert.png",
+    pdfUrl: "/Darshan_Patil_Brand_Executive_Certificate.pdf",
+    credentialId: "Wipro DICE ID",
+    verified: true,
+  },
+  {
+    title: "Web Development Course Completion",
+    tech: "Launched Global · Kshitij IIT KGP",
+    thumbnail: "/assets/launched-global-course-cert.png",
+    pdfUrl: "/Darshan_Patil_LaunchedGlobal_Course_Certificate.pdf",
+    credentialId: "LEDCC0184",
+    verified: true,
+  },
 ];
+
+const ExternalLinkIcon = () => (
+  <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+  </svg>
+);
 
 const GithubIcon = () => (
   <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -65,37 +131,80 @@ const Spinner = () => (
 );
 
 function ProjectCard({ item }: { item: typeof projects[0] }) {
+  const handleCardClick = () => {
+    const targetUrl = item.demo || item.github;
+    if (targetUrl) {
+      window.open(targetUrl, "_blank", "noopener,noreferrer");
+    }
+  };
+
   return (
     <div
-      className="group relative rounded-2xl border border-white/15 overflow-hidden bg-white/[0.06] 
-      hover:border-white/25 transition-all duration-500 
-      hover:-translate-y-2 hover:shadow-2xl hover:shadow-white/10 backdrop-blur-md"
+      onClick={handleCardClick}
+      className="group relative rounded-2xl border border-white/15 overflow-hidden bg-white/[0.04] 
+      hover:border-white/30 transition-all duration-500 
+      hover:-translate-y-2 hover:shadow-2xl hover:shadow-white/10 backdrop-blur-md flex flex-col justify-between cursor-pointer h-full"
       style={{ backdropFilter: "blur(20px)" }}
     >
-      <div className="relative h-48 overflow-hidden bg-white/5">
+      <div className="relative h-48 overflow-hidden bg-white/5 shrink-0">
         <img
           src={item.thumbnail}
-          alt={item.tech}
+          alt={item.title}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
         <div className="absolute inset-0 bg-white/0 group-hover:bg-white/5 transition-colors duration-300" />
+        
+        {/* Category Badge */}
+        <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-black/60 border border-white/20 text-[10px] text-white/80 font-mono tracking-wider uppercase backdrop-blur-md">
+          {item.category}
+        </div>
+
+        <div className="absolute bottom-3 left-4 right-4">
+          <p className="text-white font-semibold text-sm leading-snug line-clamp-1">{item.title}</p>
+        </div>
       </div>
-      <div className="p-5 flex items-center justify-between">
-        <span className="text-[10px] uppercase tracking-[0.25em] text-white/40 font-mono">
-          {item.tech}
-        </span>
-        <a
-          href={item.github}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center justify-center w-8 h-8 rounded-full 
-          bg-white/5 border border-white/15 text-white/60 
-          hover:bg-white/10 hover:text-white hover:border-white/30 
-          transition-all duration-200 active:scale-95"
-        >
-          <GithubIcon />
-        </a>
+
+      <div className="p-5 flex flex-col justify-between flex-1 gap-4">
+        <p className="text-xs text-white/60 leading-relaxed font-normal line-clamp-2">
+          {item.description}
+        </p>
+
+        <div className="pt-3 flex items-center justify-between border-t border-white/5">
+          <span className="text-[10px] uppercase tracking-[0.2em] text-white/40 font-mono line-clamp-1 pr-2">
+            {item.tech}
+          </span>
+          <div className="flex items-center gap-2 shrink-0">
+            {item.demo && (
+              <a
+                href={item.demo}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="flex items-center justify-center w-8 h-8 rounded-full 
+                bg-white/5 border border-white/15 text-white/60 
+                hover:bg-white/10 hover:text-white hover:border-white/30 
+                transition-all duration-200 active:scale-95"
+                title="Live Demo"
+              >
+                <ExternalLinkIcon />
+              </a>
+            )}
+            <a
+              href={item.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="flex items-center justify-center w-8 h-8 rounded-full 
+              bg-white/5 border border-white/15 text-white/60 
+              hover:bg-white/10 hover:text-white hover:border-white/30 
+              transition-all duration-200 active:scale-95"
+              title="GitHub Repository"
+            >
+              <GithubIcon />
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -104,15 +213,18 @@ function ProjectCard({ item }: { item: typeof projects[0] }) {
 function CertCard({ item }: { item: typeof certificates[0] }) {
   const [downloading, setDownloading] = useState(false);
 
-  const handleDownload = async () => {
+  const handleDownload = async (e: React.MouseEvent) => {
+    e.stopPropagation();
     setDownloading(true);
     try {
-      const response = await fetch(item.thumbnail, { mode: "cors" });
+      const fileToFetch = item.pdfUrl || item.thumbnail;
+      const response = await fetch(fileToFetch, { mode: "cors" });
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
-      link.download = `${item.title}.jpg`;
+      const ext = item.pdfUrl ? "pdf" : "png";
+      link.download = `${item.title.replace(/[^a-zA-Z0-9_-]/g, "_")}.${ext}`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -123,37 +235,77 @@ function CertCard({ item }: { item: typeof certificates[0] }) {
     setTimeout(() => setDownloading(false), 500);
   };
 
+  const handleOpen = () => {
+    if (item.pdfUrl) {
+      window.open(item.pdfUrl, "_blank", "noopener,noreferrer");
+    } else if (item.thumbnail && item.thumbnail !== "#") {
+      window.open(item.thumbnail, "_blank", "noopener,noreferrer");
+    }
+  };
+
   return (
     <div
-      className="group relative rounded-2xl border border-white/15 overflow-hidden bg-white/[0.06]
-      hover:border-white/25 transition-all duration-500
-      hover:-translate-y-2 hover:shadow-2xl hover:shadow-white/10 backdrop-blur-md"
+      onClick={handleOpen}
+      className={`group relative rounded-2xl border border-white/15 overflow-hidden bg-white/[0.06]
+      hover:border-white/30 transition-all duration-500
+      hover:-translate-y-2 hover:shadow-2xl hover:shadow-white/10 backdrop-blur-md flex flex-col justify-between ${
+        item.pdfUrl ? "cursor-pointer" : ""
+      }`}
       style={{ backdropFilter: "blur(20px)" }}
     >
-      <div className="relative h-48 overflow-hidden bg-white/5">
+      <div className="relative h-52 overflow-hidden bg-white/5">
         <img
           src={item.thumbnail}
           alt={item.title}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+          className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-        <div className="absolute bottom-4 left-4 right-4">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+        {item.verified && (
+          <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-[10px] text-emerald-300 font-mono tracking-wider uppercase flex items-center gap-1 backdrop-blur-md">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            Verified
+          </div>
+        )}
+        <div className="absolute bottom-3 left-4 right-4">
           <p className="text-white font-semibold text-sm leading-snug line-clamp-2">{item.title}</p>
+          {item.credentialId && (
+            <p className="text-[10px] text-white/50 font-mono mt-1 tracking-wider">
+              ID: {item.credentialId}
+            </p>
+          )}
         </div>
       </div>
-      <div className="px-5 py-4 flex items-center justify-between">
-        <span className="text-[10px] uppercase tracking-[0.25em] text-white/40 font-mono">
+      <div className="px-5 py-4 flex items-center justify-between border-t border-white/5">
+        <span className="text-[10px] uppercase tracking-[0.25em] text-white/40 font-mono line-clamp-1 pr-2">
           {item.tech}
         </span>
-        <button
-          onClick={handleDownload}
-          className="flex items-center justify-center w-8 h-8 rounded-full 
-          bg-white/5 border border-white/15 text-white/60 
-          hover:bg-white/10 hover:text-white hover:border-white/30 
-          transition-all duration-200 active:scale-95"
-        >
-          {downloading ? <Spinner /> : <DownloadIcon />}
-        </button>
+        <div className="flex items-center gap-2 shrink-0">
+          {item.pdfUrl && (
+            <a
+              href={item.pdfUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="flex items-center justify-center w-8 h-8 rounded-full 
+              bg-white/5 border border-white/15 text-white/60 
+              hover:bg-white/10 hover:text-white hover:border-white/30 
+              transition-all duration-200 active:scale-95"
+              title="View Certificate PDF"
+            >
+              <ExternalLinkIcon />
+            </a>
+          )}
+          <button
+            onClick={handleDownload}
+            className="flex items-center justify-center w-8 h-8 rounded-full 
+            bg-white/5 border border-white/15 text-white/60 
+            hover:bg-white/10 hover:text-white hover:border-white/30 
+            transition-all duration-200 active:scale-95"
+            title="Download Certificate"
+          >
+            {downloading ? <Spinner /> : <DownloadIcon />}
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -172,7 +324,7 @@ function TechGrid() {
   const lastMY = useRef(0);
   const dragVX = useRef(0);
   const dragVY = useRef(0);
-  const rafId = useRef<number>();
+  const rafId = useRef<number | undefined>(undefined);
   const itemEls = useRef<HTMLDivElement[]>([]);
 
   const RADIUS = 160;
@@ -403,7 +555,15 @@ const tabs: { id: TabId; label: string }[] = [
 export default function ShowcaseSection() {
   const [active, setActive] = useState<TabId>("projects");
   const [animKey, setAnimKey] = useState(0);
+  const [projectFilter, setProjectFilter] = useState("All");
   const touchStartX = useRef<number | null>(null);
+
+  const filterOptions = ["All", "Full Stack", "AI & Systems", "Frontend"];
+
+  const filteredProjects =
+    projectFilter === "All"
+      ? projects
+      : projects.filter((p) => p.category === projectFilter);
 
   const switchTab = useCallback(
     (id: TabId) => {
@@ -506,16 +666,40 @@ export default function ShowcaseSection() {
           onTouchEnd={handleTouchEnd}
         >
           {active === "projects" && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
-              {projects.map((item, i) => (
-                <div
-                  key={i}
-                  className="opacity-0"
-                  style={{ animation: `fadeSlideUp 0.5s ease ${i * 0.08}s forwards` }}
-                >
-                  <ProjectCard item={item} />
-                </div>
-              ))}
+            <div className="space-y-8">
+              {/* Category Filter Pills */}
+              <div className="flex flex-wrap items-center justify-center gap-2">
+                {filterOptions.map((opt) => (
+                  <button
+                    key={opt}
+                    onClick={() => setProjectFilter(opt)}
+                    className={`px-4 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all duration-200 cursor-pointer ${
+                      projectFilter === opt
+                        ? "bg-white text-black font-semibold shadow-[0_0_20px_rgba(255,255,255,0.25)] scale-105"
+                        : "bg-white/[0.04] text-white/50 border border-white/10 hover:border-white/30 hover:text-white"
+                    }`}
+                  >
+                    {opt}
+                    <span className="ml-1.5 opacity-60 text-[10px]">
+                      {opt === "All"
+                        ? `(${projects.length})`
+                        : `(${projects.filter((p) => p.category === opt).length})`}
+                    </span>
+                  </button>
+                ))}
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
+                {filteredProjects.map((item, i) => (
+                  <div
+                    key={item.title}
+                    className="opacity-0 h-full"
+                    style={{ animation: `fadeSlideUp 0.4s ease ${i * 0.06}s forwards` }}
+                  >
+                    <ProjectCard item={item} />
+                  </div>
+                ))}
+              </div>
             </div>
           )}
 

@@ -98,7 +98,7 @@ export default function FrontendDeveloperSection() {
             transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
             className="font-extrabold leading-[1.05] tracking-tight text-white text-[clamp(56px,9vw,120px)]"
           >
-            Frontend
+            Software
           </motion.h1>
 
           <motion.h1
@@ -107,7 +107,7 @@ export default function FrontendDeveloperSection() {
             transition={{ duration: 1, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
             className="font-extrabold leading-[1.05] tracking-tight text-white/70 text-[clamp(56px,9vw,120px)] mb-6"
           >
-            Developer
+            Engineer
           </motion.h1>
         </div>
 
@@ -125,17 +125,17 @@ export default function FrontendDeveloperSection() {
     from-white via-white/60 to-white
     animate-[shine_4s_linear_infinite]"
         >
-          Building modern websites with clean, responsive, elegant interfaces.
-          Turning ideas and designs into engaging digital experiences.
+          Architecting scalable full-stack applications and intelligent digital systems.
+          Transforming complex engineering challenges into high-performance, real-time experiences.
         </motion.p>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 1, delay: 0.8 }}
-          className="mt-6 flex flex-wrap gap-4"
+          className="mt-6 flex flex-wrap gap-3 sm:gap-4"
         >
-          {["Next.js", "React.js", "TypeScript", "Tailwind CSS"].map((tech) => (
+          {["React.js", "Next.js", "Node.js", "Python", "TypeScript", "MongoDB"].map((tech) => (
             <div
               key={tech}
               className="
