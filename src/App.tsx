@@ -2,7 +2,8 @@ import { ArrowUpRight, Menu, X, FileText, ChevronUp } from "lucide-react";
 import { useEffect, useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import { Routes, Route, Link } from "react-router-dom";
-const favicon = "/favicon.png";
+const base = import.meta.env.BASE_URL;
+const favicon = `${base}favicon.png`;
 
 import heroEye from "@/assets/hero-eye.png";
 
@@ -200,7 +201,7 @@ export default function App() {
 
             <div className="hidden md:flex items-center gap-4">
               <a
-                href="/Darshan_Patil_Resume_SE.pdf"
+                href={`${base}Darshan_Patil_Resume_SE.pdf`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full border border-white/20 bg-white/5 hover:bg-white hover:text-black transition-all duration-300 text-[11px] font-bold tracking-widest uppercase text-white shadow-[0_0_15px_rgba(255,255,255,0.06)]"
@@ -288,7 +289,7 @@ export default function App() {
 
               <div className="flex flex-col items-center gap-3 mt-4 pt-6 border-t border-white/10 w-48">
                 <a
-                  href="/Darshan_Patil_Resume_SE.pdf"
+                  href={`${base}Darshan_Patil_Resume_SE.pdf`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2 w-full py-2.5 rounded-full bg-white text-black text-xs font-bold tracking-widest uppercase shadow-[0_0_20px_rgba(255,255,255,0.2)]"
@@ -369,7 +370,7 @@ animate-[shine_4s_linear_infinite]">
 
                 <div className="flex flex-wrap items-center gap-3">
                   <a
-                    href="/Darshan_Patil_Resume_SE.pdf"
+                    href={`${base}Darshan_Patil_Resume_SE.pdf`}
                     target="_blank"
                     rel="noopener noreferrer"
                   >

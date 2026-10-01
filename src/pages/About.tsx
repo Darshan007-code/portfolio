@@ -15,6 +15,8 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
+const base = import.meta.env.BASE_URL;
+
 export default function About() {
   const navigate = useNavigate();
   const text = "About Myself";
@@ -65,13 +67,13 @@ export default function About() {
         clearInterval(timer);
 
         const a = document.createElement("a");
-        a.href = "/Darshan_Patil_Resume_SE.pdf";
+        a.href = `${base}Darshan_Patil_Resume_SE.pdf`;
         a.download = "Darshan_Patil_Resume_SE.pdf";
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
 
-        window.open("/Darshan_Patil_Resume_SE.pdf", "_blank");
+        window.open(`${base}Darshan_Patil_Resume_SE.pdf`, "_blank");
 
         setDownloading(false);
         setCountdown(null);
@@ -156,7 +158,7 @@ export default function About() {
           className="flex flex-col items-center"
         >
           <img
-            src="/assets/darshan.png"
+            src={`${base}assets/darshan.png`}
             alt="Darshan Patil"
             className="
               w-[200px]
@@ -339,7 +341,7 @@ export default function About() {
                   <div className="mt-4 pt-3 border-t border-white/10 flex flex-wrap items-center justify-between gap-2">
                     <span className="text-[11px] font-mono text-white/40">Credential ID: SM26VFSWD1071</span>
                     <a
-                      href="/Darshan_Patil_SuprMentr_Internship_Certificate.jpeg"
+                      href={`${base}Darshan_Patil_SuprMentr_Internship_Certificate.jpeg`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/15 bg-white/[0.05] hover:bg-white/15 text-xs text-white/90 hover:text-white transition-all duration-200"
@@ -375,7 +377,7 @@ export default function About() {
                   <div className="mt-4 pt-3 border-t border-white/10 flex flex-wrap items-center justify-between gap-2">
                     <span className="text-[11px] font-mono text-white/40">Credential ID: LEDINT02-WD004</span>
                     <a
-                      href="/Darshan_Patil_LaunchedGlobal_Certificate.pdf"
+                      href={`${base}Darshan_Patil_LaunchedGlobal_Certificate.pdf`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/15 bg-white/[0.05] hover:bg-white/15 text-xs text-white/90 hover:text-white transition-all duration-200"
@@ -470,7 +472,7 @@ export default function About() {
                     </div>
                   </div>
                   <a
-                    href="/Darshan_Patil_SuprMentr_Internship_Certificate.jpeg"
+                    href={`${base}Darshan_Patil_SuprMentr_Internship_Certificate.jpeg`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="shrink-0 p-2 rounded-xl border border-white/10 bg-white/[0.04] text-white/60 hover:text-white hover:border-white/30 hover:bg-white/10 transition-all duration-200"
@@ -488,7 +490,7 @@ export default function About() {
                     </div>
                   </div>
                   <a
-                    href="/Darshan_Patil_LaunchedGlobal_Certificate.pdf"
+                    href={`${base}Darshan_Patil_LaunchedGlobal_Certificate.pdf`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="shrink-0 p-2 rounded-xl border border-white/10 bg-white/[0.04] text-white/60 hover:text-white hover:border-white/30 hover:bg-white/10 transition-all duration-200"
@@ -506,7 +508,7 @@ export default function About() {
                     </div>
                   </div>
                   <a
-                    href="/Darshan_Patil_Brand_Executive_Certificate.pdf"
+                    href={`${base}Darshan_Patil_Brand_Executive_Certificate.pdf`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="shrink-0 p-2 rounded-xl border border-white/10 bg-white/[0.04] text-white/60 hover:text-white hover:border-white/30 hover:bg-white/10 transition-all duration-200"
