@@ -22,6 +22,15 @@ const base = import.meta.env.BASE_URL;
 
 const projects = [
   {
+    title: "Care Transition & Placement Analytics",
+    category: "AI & Systems",
+    description: "Decision-support surveillance platform tracking the U.S. Unaccompanied Children pipeline with Little's Law queueing models & TVPRA compliance analytics.",
+    tech: "Python + Streamlit + Queueing Models + Plotly",
+    thumbnail: `${base}assets/care-transition-analytics-preview.png`,
+    github: "https://github.com/Darshan007-code/care-transition-analytics",
+    demo: "https://care-transition-analytics.streamlit.app",
+  },
+  {
     title: "Nassau Candy Logistics Optimizer",
     category: "AI & Systems",
     description: "Decision intelligence & predictive logistics platform optimizing nationwide haulage, freight savings & factory reallocations.",

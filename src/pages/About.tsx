@@ -296,7 +296,7 @@ export default function About() {
                 <p className="text-xs text-white/50 tracking-wider uppercase mt-1">Young Turks</p>
               </div>
               <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 text-center hover:border-white/20 transition-all duration-300">
-                <p className="text-2xl sm:text-3xl font-bold text-white tracking-tight">6+</p>
+                <p className="text-2xl sm:text-3xl font-bold text-white tracking-tight">7+</p>
                 <p className="text-xs text-white/50 tracking-wider uppercase mt-1">Projects</p>
               </div>
             </div>
