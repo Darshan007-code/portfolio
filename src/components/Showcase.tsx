@@ -22,6 +22,15 @@ const base = import.meta.env.BASE_URL;
 
 const projects = [
   {
+    title: "GreenLeaf Grocers ERP & POS",
+    category: "Full Stack",
+    description: "Enterprise retail inventory & Point-of-Sale billing ecosystem featuring atomic stock deduction, barcode scanning, 7-day predictive demand forecasting & 3NF SQLite schema.",
+    tech: "Python + Flask + SQLite + Pandas + Chart.js",
+    thumbnail: `${base}assets/greenleaf-grocers-preview.png`,
+    github: "https://github.com/Darshan007-code/greenleaf-grocers",
+    demo: "https://unable-slip-surfing-handbook.trycloudflare.com",
+  },
+  {
     title: "Care Transition & Placement Analytics",
     category: "AI & Systems",
     description: "Decision-support surveillance platform tracking the U.S. Unaccompanied Children pipeline with Little's Law queueing models & TVPRA compliance analytics.",
