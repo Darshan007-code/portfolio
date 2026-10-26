@@ -28,7 +28,7 @@ const projects = [
     tech: "Python + Streamlit + Queueing Models + Plotly",
     thumbnail: `${base}assets/care-transition-analytics-preview.png`,
     github: "https://github.com/Darshan007-code/care-transition-analytics",
-    demo: "https://care-transition-analytics.streamlit.app",
+    demo: "https://care-transition-analytics-enmyann9v6ewdfyv4ophmp.streamlit.app/",
   },
   {
     title: "Nassau Candy Logistics Optimizer",
