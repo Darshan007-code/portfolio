@@ -22,6 +22,15 @@ const base = import.meta.env.BASE_URL;
 
 const projects = [
   {
+    title: "Nassau Candy Logistics Optimizer",
+    category: "AI & Systems",
+    description: "Decision intelligence & predictive logistics platform optimizing nationwide haulage, freight savings & factory reallocations.",
+    tech: "Python + Streamlit + Scikit-Learn + Plotly",
+    thumbnail: `${base}assets/nassau-candy-optimizer-preview.png`,
+    github: "https://github.com/Darshan007-code/nassau-candy-optimizer",
+    demo: "https://nassau-candy-optimizer.streamlit.app",
+  },
+  {
     title: "Real-Time Chat App",
     category: "Full Stack",
     description: "Full-stack messaging application featuring WebSocket live presence, private chat rooms & Zustand state.",
